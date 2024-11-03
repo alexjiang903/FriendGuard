@@ -1,0 +1,19 @@
+# Logs
+logs/
+*.log
+
+# Dependency directories
+node_modules/
+
+# Chrome extension files
+.DS_Store
+*.pem
+
+# Ignore Firebase/Firestore settings if used
+firebase.json
+firestore.rules
+firestore.indexes.json
+
+# IDE-specific files
+.vscode/
+*.sublime-*
