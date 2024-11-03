@@ -2,7 +2,7 @@
     "name": "FriendGuard",
     "version": "0.1",
     "manifest_version": 3,
-    "description": "Alerting users of suspicious/fradulent friend request recieved on Steam",
+    "description": "Alerting users of suspicious/fradulent friend requests recieved on Steam",
     "permissions": [],
     "content_scripts": [
         {
