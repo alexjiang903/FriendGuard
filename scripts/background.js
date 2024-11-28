@@ -1,6 +1,6 @@
-function isolateSteamUserID(string) {
-  // https://steamcommunity.com/profiles/xxxxxxx/friends/pending
+console.log("background script loaded!"); //also not being logged, seems to be no connection with content script.
 
+function isolateSteamUserID(string) {
     let newString = string.replace("/friends/pending", "");
     let idx = newString.length - 1;
     let steamID = '';

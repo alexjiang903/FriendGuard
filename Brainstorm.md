@@ -7,7 +7,7 @@ Background script responsible for listening to current tab and determining if it
 Example of steam trade page format: https://steamcommunity.com/profiles/76561198205206195/friends/pending
 
 **Requirements:** 
-- must include https://steamcommunity.com/
+- must include https://steamcommunity.com/ (can just check steamcommunity.com part, https irrelevant)
 - must have "profiles/" followed by some userID name (don't care specifically what that userID name is)
 - must end in "/friends/pending"
 

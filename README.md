@@ -7,9 +7,3 @@ A Chrome Web Extension to allow users on Steam to be notified/alerted of any sus
 
 
 
-
-
-
-
-
-
