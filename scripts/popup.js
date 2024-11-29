@@ -6,9 +6,7 @@ document.addEventListener( 'DOMContentLoaded', async () => {
     //trigger when HTML is loaded
     const activeTab = await getActiveTabURL();
     const url = activeTab.url;
-    console.log(activeTab);
-    console.log(url);
-
+    
     if (url.includes("steamcommunity.com/profiles")) {
       //if the url is a steam profile page display main page
       const container = document.getElementsByClassName("container")[0];
@@ -24,7 +22,7 @@ document.addEventListener( 'DOMContentLoaded', async () => {
 
     else {
       const container = document.getElementsByClassName("container")[0];
-      container.innerHTML = `<div>Steam Profile Not Detected :(</div>`;
+      container.innerHTML = `<div><h1>Steam Profile Not Detected :(</h1></div>`;
     }
 })
 
