@@ -1,6 +1,6 @@
 // Responsible for creating the popup that appears when the user clicks on the extension icon.
 import { getActiveTabURL } from "../utils/utils.js";
-
+// test change to publish branch
 
 document.addEventListener( 'DOMContentLoaded', async () => {
     //trigger when HTML is loaded
