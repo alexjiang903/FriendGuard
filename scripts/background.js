@@ -6,7 +6,6 @@ function isolateSteamUserID(string) {
     let steamID = '';
 
     while (newString[idx] !== '/') {
-        //Slice off the "" portion starting from back
         steamID += newString[idx];
         idx--;
     }
