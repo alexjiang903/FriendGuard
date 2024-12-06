@@ -1,8 +1,7 @@
 // Responsible for creating the popup that appears when the user clicks on the extension icon.
 import { getActiveTabURL } from "../utils/utils.js";
-// test change to publish branch
 
-document.addEventListener( 'DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', async () => {
     //trigger when HTML is loaded
     const activeTab = await getActiveTabURL();
     const url = activeTab.url;
@@ -38,48 +37,47 @@ document.addEventListener( 'DOMContentLoaded', async () => {
           <h3 class="text-xl">Stay safe on Steam!</h3>
         </header>
     
-        <section class="disclaimer bg-gray-200 p-4 rounded-md mt-4">
+        <section class="disclaimer bg-gray-800 p-4 rounded-md mt-4">
           <p class="text-sm text-gray-500">
             <strong>DISCLAIMER:</strong> This tool should only used as a suggestion. Please err on the side of caution, we cannot guarantee 100% accuracy.
         </section>
-        <section id="sus-button" class="">
-          <button>Check Sus level</button>
+        <section id="get-sus-score">
+          <button id="sus-button">Check sus level</button>
         </section>
       </section>
       `;
 
       function handleClick() {
         console.log("clicked!");
-      
-        const friendStatus = document.getElementById("search_results_empty");
-        console.log("friend status:", friendStatus)
+        const friendStatus = document.getElementById("search_results_empty"); 
 
-        if (friendStatus && friendStatus.textContent.includes("Sorry, there are no pending friend invites to show.")) {
-          const warning = document.createElement("div");
-          warning.innerHTML = "<p>No friend requests detected!</p>";
-          const container = document.getElementsByClassName("container")[0];
-          container.appendChild(warning);
+        /*  "search_results_empty" is the ID of element that appears on the page 
+        when no pending friend requests are found  */
+        
+        if (!friendStatus) {
+          console.log('no friend requests found!');
+          //add text warning to indicate no requests to analyze
+          const warningMessage = document.createElement("h2");
+          warningMessage.textContent = "No friends found 😭";
+          warningMessage.style.color = "red";
+          
+          container.appendChild(warningMessage);
+
+          setTimeout(() => {
+            warningMessage.remove();
+          }, 5000);
         }
 
         else {
-          console.log("friends present?")
+          console.log("friends are present")
+          //TO IMPLEMENT: list friend(s) in dropdown, allow user to select friend to analyze
         }
+        
       }
 
-
-      document.addEventListener("DOMContentLoaded", function() {
-        const susButton = document.getElementById("sus-button");
-        if (susButton) {
-          susButton.addEventListener("click", handleClick)
-
-        }
-        else {
-          console.error("sus button not found");
-        }
-  
-      })
-
-
+      const susButton = document.getElementById("sus-button");
+      susButton.addEventListener("click", handleClick)
+      
     }
 
     else {
