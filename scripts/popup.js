@@ -1,35 +1,54 @@
-// Responsible for creating the popup that appears when the user clicks on the extension icon.
+// Manages the popup that appears when the user clicks on the extension icon.
 import { getActiveTabURL } from "../utils/utils.js";
+
+function handleClick(container) {
+  //called if #search_results is found
+  console.log("clicked!");
+  console.log("friends are present");
+
+  container.innerHTML = 'yipeeee';
+}
+
+function waitForFriends(selector, callback, container, timeout=1000) {
+  //Waits for selector (#search_results) to appear before calling handleClick
+  //if timeout is reached, alert users that no friend reqs were found. 
+  const observer = new MutationObserver((mutations, observer) => {
+    // Check if #search_results exists
+    if (document.querySelector(selector)) {
+      console.log("found!");
+      observer.disconnect(); // #search_results found, done observing
+      callback(); // Call handleClick 
+    }
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true }); //observe entire DOM for changes
+
+  setTimeout(() => {
+    observer.disconnect();
+    console.log(`Element '${selector}' not found within ${timeout}ms`);
+    
+    const warningMessage = document.createElement("h1"); // warning if no friend requests found
+    warningMessage.classList.add("no-friends-msg");
+    warningMessage.textContent = "No friends to analyze! 😎";
+    
+    container.append(warningMessage);
+    setTimeout(() => warningMessage.remove(), 4000);
+  }, timeout);
+}
 
 document.addEventListener('DOMContentLoaded', async () => {
     //trigger when HTML is loaded
     const activeTab = await getActiveTabURL();
     const url = activeTab.url;
-    
+    const container = document.getElementsByClassName("container")[0];
+
+    if (!container) {
+      console.error("no container found!");
+      return;
+    }
+
     if (url.includes("steamcommunity.com/profiles")) {
       //if the url is a steam profile page display main page
-      const container = document.getElementsByClassName("container")[0];
-      // Add styles dynamically inside the page
-      const style = document.createElement("style");
-      style.innerHTML = `
-        #front-page {
-            padding: 50px;
-            background-color: #9fd7fc;
-        }
-
-        .title {
-          font-size: 2em;
-          font-weight: bold;
-        }
-
-        .disclaimer {
-          margin-top: 15px;
-          font-size: 0.9em;
-          color: gray;
-        }`;
-
-      document.head.appendChild(style); // Append the style to head
-
       container.innerHTML = `
       <section id="front-page" class="p-6 bg-gray-100 rounded-lg shadow-lg">
         <header>
@@ -42,48 +61,19 @@ document.addEventListener('DOMContentLoaded', async () => {
             <strong>DISCLAIMER:</strong> This tool should only used as a suggestion. Please err on the side of caution, we cannot guarantee 100% accuracy.
         </section>
         <section id="get-sus-score">
-          <button id="sus-button">Check sus level</button>
+          <button id="sus-button">Vibe check your friends</button>
         </section>
       </section>
       `;
 
-      function handleClick() {
-        console.log("clicked!");
-        const friendStatus = document.getElementById("search_results_empty"); 
-
-        /*  "search_results_empty" is the ID of element that appears on the page 
-        when no pending friend requests are found  */
-        
-        if (!friendStatus) {
-          console.log('no friend requests found!');
-          //add text warning to indicate no requests to analyze
-          const warningMessage = document.createElement("h2");
-          warningMessage.textContent = "No friends found 😭";
-          warningMessage.style.color = "red";
-          
-          container.appendChild(warningMessage);
-
-          setTimeout(() => {
-            warningMessage.remove();
-          }, 5000);
-        }
-
-        else {
-          console.log("friends are present")
-          //TO IMPLEMENT: list friend(s) in dropdown, allow user to select friend to analyze
-        }
-        
-      }
-
       const susButton = document.getElementById("sus-button");
-      susButton.addEventListener("click", handleClick)
+      susButton.addEventListener("click", () => {
+        waitForFriends("#search_results", () => handleClick(container), container); 
+      });
       
     }
 
     else {
-      const container = document.getElementsByClassName("container")[0];
       container.innerHTML = `<div><h1>Steam Profile Not Detected :(</h1></div>`;
     }
 })
-
-

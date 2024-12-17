@@ -2,3 +2,24 @@
 .container {
     width: 300px;
 }
+
+#front-page {
+    padding: 50px;
+    background-color: #9fd7fc;
+}
+
+.title {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.disclaimer {
+  margin-top: 15px;
+  font-size: 0.9em;
+  color: gray;
+}
+
+.no-friends-msg {
+    color: red;
+    text-align: center;
+}
