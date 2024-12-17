@@ -1,5 +1,5 @@
 console.log("background script loaded!"); 
-
+//commit to publish branch
 function isolateSteamUserID(string) {
     const newString = string.replace("/friends/pending", "");
     let idx = newString.length - 1;
@@ -34,7 +34,3 @@ chrome.tabs.onUpdated.addListener((tabID, _changeInfo, tab) => {
     });
   }
 });
-
-
-
-
