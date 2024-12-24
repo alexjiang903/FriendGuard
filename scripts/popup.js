@@ -12,15 +12,29 @@ function handleClick(container) {
 function waitForFriends(selector, callback, container, timeout=1000) {
   //Waits for selector (#search_results) to appear before calling handleClick
   //if timeout is reached, alert users that no friend reqs were found. 
+  console.log("waiting for friends...");
+  console.log("selectorID: ", selector);
+  console.log(callback);
   const observer = new MutationObserver((mutations, observer) => {
     // Check if #search_results exists
-    if (document.querySelector(selector)) {
+    console.log("observer called!"); // this is not logged...
+    const element = document.querySelector(selector);
+    console.log(element);
+
+    if (!element) {
+      console.log("Element not found");
+      return;
+    }
+
+    console.log(element.offsetParent !== null) //should be true if visible 
+    console.log("Style:", getComputedStyle(element).display)
+    if (element && element.offsetParent !== null) {
       console.log("found!");
       observer.disconnect(); // #search_results found, done observing
       callback(); // Call handleClick 
     }
   });
-
+  console.log("observing...");
   observer.observe(document.body, { childList: true, subtree: true }); //observe entire DOM for changes
 
   setTimeout(() => {
